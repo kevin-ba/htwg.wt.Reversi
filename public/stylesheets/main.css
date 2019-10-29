@@ -65,22 +65,12 @@
     hight: 100%;
 }
 
-.normal {
-    background-color:#E0E0FF;
+.black {
+    background-color:#000000;
 }
-.given {
+.white {
+    background-color:#ffffff;
+}
+.notSet {
     background-color:#C8C8FF;
-}
-.highlighted {
-    background-color:#C0FFC0;
-}
-
-.candidatecell {
-    display: inline-block; /* switch to inline-block if candidates should show*/
-    float:left;
-    font-size: 27.5%;
-    border-style: outset;
-    border-width: 0.125em;
-    width: 1.2em;
-    height: 1.2em;
 }

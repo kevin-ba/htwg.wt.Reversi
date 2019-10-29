@@ -1,13 +1,13 @@
 @(controller:de.htwg.se.reversi.controller.controllerComponent.ControllerInterface)
 
 @size= @{ controller.gridSize }
-@blocksize= @{ controller.blockSize}
+
 @cellMode(house:Int, cell:Int) = @{
     val scalar = toScalar(house,cell)
     val row_ = row(scalar)
     val col_ = col(scalar)
-    if(controller.isGiven(row_,col_)) "given" else
-        if(controller.isHighlighted(row_, col_)) "highlighted" else "normal"
+    if(controller.cell(row_,col_).value == 1) "white" else
+        if(controller..cell(row_,col_).value == 2) "black" else "notSet"
 }
 @toScalar(house:Int, cell:Int)=@{ house*size + cell}
 @row(scalar:Int)=@{((scalar % size) /blocksize) + (blocksize * (scalar /(size*blocksize)))}
