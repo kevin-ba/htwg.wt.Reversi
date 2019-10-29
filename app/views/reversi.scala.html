@@ -1,0 +1,24 @@
+@(controller:de.htwg.se.reversi.controller.controllerComponent.ControllerInterface)
+
+@size= @{ controller.gridSize }
+
+
+@main("HTWG Reversi") {
+    <div class="gamecontainer">
+        <div class="game">
+        @for(row <- 0 until size) {
+            <div class="house size@size">
+            @for(col <- 0 until size) {
+                <span class="cell">
+                    <span class="@{"number"}">
+                    @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "X"}
+                    </span>
+
+                </span>
+            }
+            </div>
+            <div class="clear"></div>
+        }
+        </div>
+    </div>
+}

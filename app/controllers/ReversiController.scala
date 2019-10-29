@@ -16,7 +16,17 @@ class ReversiController @Inject()(cc: ControllerComponents) extends AbstractCont
   }
 
   def reversi = Action {
-    Ok(reversiAsText)
+    Ok(views.html.reversi(gameController))
+  }
+
+  def newGrid = Action {
+    gameController.createNewGrid
+    Ok(views.html.reversi(gameController))
+  }
+
+  def resize(size:Int)= Action {
+    gameController.resize(size)
+    Ok(views.html.reversi(gameController))
   }
 
 }

@@ -2,9 +2,11 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Controller for Sudoku
+# Controller for Reversi
 
 GET     /                           controllers.ReversiController.reversi
+GET     /new                        controllers.ReversiController.newGrid
+GET     /resize/:size                      controllers.ReversiController.resize(size:Int)
 
 GET     /about                      controllers.ReversiController.about
 
