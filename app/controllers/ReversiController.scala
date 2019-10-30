@@ -29,4 +29,9 @@ class ReversiController @Inject()(cc: ControllerComponents) extends AbstractCont
     Ok(views.html.reversi(gameController))
   }
 
+  def set(row: Int, col: Int) = Action {
+    gameController.set(row,col,gameController.getActivePlayer())
+    Ok(views.html.reversi(gameController))
+  }
+
 }

@@ -6,7 +6,8 @@
 
 GET     /                           controllers.ReversiController.reversi
 GET     /new                        controllers.ReversiController.newGrid
-GET     /resize/:size                      controllers.ReversiController.resize(size:Int)
+GET     /resize/:size               controllers.ReversiController.resize(size:Int)
+GET     /set/:row/:col              controllers.ReversiController.set(row:Int, col:Int)
 
 GET     /about                      controllers.ReversiController.about
 

@@ -50,7 +50,9 @@
         <div class="game">
         @for(row <- 0 until size) {
             @for(col <- 0 until size) {
-                <div class="@{cellType(row, col)}"></div>
+                <div class="@{cellType(row, col)}">
+                    <a href="/set/@row/@col">&nbsp;</a>
+                </div>
             }
             <div class="clear"></div>
         }
