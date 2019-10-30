@@ -29,4 +29,44 @@ class ReversiController @Inject()(cc: ControllerComponents) extends AbstractCont
     Ok(views.html.reversi(gameController))
   }
 
+  def set(row: Int, col: Int) = Action {
+    gameController.set(row,col,gameController.getActivePlayer())
+    Ok(views.html.reversi(gameController))
+  }
+
+  def enableBot() = Action {
+    gameController.enableBot()
+    Ok(views.html.reversi(gameController))
+  }
+
+  def disableBot() = Action {
+    gameController.disableBot()
+    Ok(views.html.reversi(gameController))
+  }
+
+  def save() = Action {
+    gameController.save()
+    Ok(views.html.reversi(gameController))
+  }
+
+  def load() = Action {
+    gameController.load()
+    Ok(views.html.reversi(gameController))
+  }
+
+  def undo() = Action {
+    gameController.undo
+    Ok(views.html.reversi(gameController))
+  }
+
+  def redo() = Action {
+    gameController.redo
+    Ok(views.html.reversi(gameController))
+  }
+
+  def quit() = Action {
+    System.exit(0)
+    Ok(views.html.reversi(gameController))
+  }
+
 }
