@@ -54,4 +54,19 @@ class ReversiController @Inject()(cc: ControllerComponents) extends AbstractCont
     Ok(views.html.reversi(gameController))
   }
 
+  def undo() = Action {
+    gameController.undo
+    Ok(views.html.reversi(gameController))
+  }
+
+  def redo() = Action {
+    gameController.redo
+    Ok(views.html.reversi(gameController))
+  }
+
+  def quit() = Action {
+    System.exit(0)
+    Ok(views.html.reversi(gameController))
+  }
+
 }
