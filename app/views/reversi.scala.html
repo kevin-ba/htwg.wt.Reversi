@@ -2,47 +2,24 @@
 
 @size= @{ controller.gridSize }
 
-@cellMode(house:Int, cell:Int) = @{
-    val scalar = toScalar(house,cell)
-    val row_ = row(scalar)
-    val col_ = col(scalar)
-    if(controller.cell(row_,col_).value == 1) "white" else
-        if(controller..cell(row_,col_).value == 2) "black" else "notSet"
+@cellType(row:Int, col:Int) = @{
+    controller.cell(row, col).value match {
+        case 1 => "white"
+        case 2 => "black"
+        case _ => "notSet"
+    }
 }
-@toScalar(house:Int, cell:Int)=@{ house*size + cell}
-@row(scalar:Int)=@{((scalar % size) /blocksize) + (blocksize * (scalar /(size*blocksize)))}
-@col(scalar:Int)=@{(scalar %blocksize) + (blocksize *(scalar/size)) - (size*(scalar/(size*blocksize)))}
-@cell(houseIndex:Int, cellIndex:Int) = @{controller.cell(row(toScalar(houseIndex,cellIndex)),col(toScalar(houseIndex,cellIndex)))}
 
 @main("HTWG Reversi") {
-    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/reversi.css")' />
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")' />
 
     <div class="gamecontainer">
         <div class="game">
-        @for(houseIndex <- 0 until size) {
-            <div class="house size@size">
-            @for(cellIndex <- 0 until size) {
-                <div class="cell">
-                    @if(cell(houseIndex,cellIndex).isSet) {
-                        <div class="@{"number "+cellMode(houseIndex, cellIndex)}">
-                        @{cell(houseIndex,cellIndex).toString.take(1)}
-                        </div>} else {
-                        @if(cell(houseIndex,cellIndex).showCandidates) {
-                            @for(candidateIndex <- 0 until size) {
-                                <div class="candidatecell">
-                                @candidateIndex
-                                </div>
-                                @if(candidateIndex % blocksize == blocksize - 1) {
-                                    <div class="clear"></div>
-                                }
-                            }
-                        }
-                    }
-                    @if(cellIndex % blocksize==blocksize-1){<div class="clear"></div>}
-                </div>
+        @for(row <- 0 until size) {
+            @for(col <- 0 until size) {
+                <div class="@{cellType(row, col)}"></div>
             }
-            </div>
-            @if(houseIndex % blocksize==blocksize-1){<div class="clear"></div>}
+            <div class="clear"></div>
         }
         </div>
     </div>

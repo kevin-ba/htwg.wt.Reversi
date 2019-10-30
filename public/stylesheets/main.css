@@ -24,14 +24,6 @@
     clear:both;
 }
 
-.house {
-    display: inline-block;
-    float: left;
-    background-color:#eeeeee;
-    padding: 0.05em;
-    margin:0.05em;
-}
-
 .size9 {
     width: 4.5em;
     height: 4.5em;
@@ -59,18 +51,40 @@
     margin:0.1em;
     text-align: center;
 }
-.number {
-    display:inline-block; /* switch to none if candidates should show*/
-    width: 100%;
-    hight: 100%;
-}
 
 .black {
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
     background-color:#000000;
+    border-color: #f6f6FF;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
 }
 .white {
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
     background-color:#ffffff;
+    border-color: #f6f6FF;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
 }
 .notSet {
-    background-color:#C8C8FF;
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    background-color: #E0E0FF;
+    border-color: #f6f6FF;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
 }
