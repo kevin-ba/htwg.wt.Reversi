@@ -28,25 +28,26 @@
         <div class="card-body">
 
             <p class="card-text">
-                Sudoku is a logic-based, combinatorial number-placement puzzle.
-                The objective is to fill a 9×9 grid with digits so that each column, each row, and
-                each of the nine 3×3 subgrids that compose the grid (also called "houses", "blocks",
-                or "regions") contains all of the digits from 1 to 9. The puzzle setter provides a
-                partially completed grid, which for a well-posed puzzle has a single solution.
+                Reveris ist ein inzwischen klassisches 2 Personen Brettspiel, das unter verschiedenen teilweise geschützen Namen
+                bekannt ist.
+                In der realen Welt spielt man mit Steinen, die zwischen auf einer Seite weiß und auf der anderen Schwarz sind.
+                Da im Spielverlauf dauernd Steine durch Umdrehen die Farbe wechseln, ist Reveris sehr dynamisches Spiel.
             </p>
 
             <p class="card-text">
-                Completed games are always a type of Latin square with an additional constraint on
-                the contents of individual regions. For example, the same single integer may not appear
-                twice in the same row, column, or any of the nine 3×3 subregions of the 9x9 playing board.
+                Spielablauf
+                Das Spielbrett hat 8x8 Felder, üblicherweise verwendet man Schachkoordinaten (Spalten mit Buchstaben a-h, Zeilen mit Ziffern 1-8).
+                Die Startstellung ist leer, bis auf die vier Felder in der Mitte.
+                Die Spieler kommen abwechselnd an die Reihe.
+                Schwarz das Spiel beginnt mit dem ersten Zug.
             </p>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
                             <p class="card-text">
-                                The following image shows a typical Reversi fiel. <br>
-                                <img src=@routes.Assets.versioned("images/reversi.png") class="img-fluid">
+                                So sieht ein Reversifeld am Anfang aus. <br>
+                                <img src=@routes.Assets.versioned("images/reversi_start.png") class="img-fluid">
                             </p>
                         </div>
                     </div>
@@ -55,8 +56,11 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="card-text">
-                                The solution to this puzzle is shown below. <br>
-                                <img src=@routes.Assets.versioned("images/reversi.png") class="img-fluid">
+                                Schwarz beginnt. <br>
+                                <img src=@routes.Assets.versioned("images/reversi_zug.png") class="img-fluid">
+                                <br> Bei seinem Zug legt ein Spieler einen Stein seiner eigenen Farbe auf ein leeres Feld.
+                                Durch den Zug müssen ein oder mehrere gegnerische Steine geradlinig (auch diagonal) ohne Lücke zwischen den gerade gespielten eigenen Stein und bereits
+                                liegende eigene Steine eingeklammert werden. Die eingeklammerten gegnerischen Steine wechseln dann die Farbe, werden also eigene Steine. <br>
                             </p>
                         </div>
                     </div>
