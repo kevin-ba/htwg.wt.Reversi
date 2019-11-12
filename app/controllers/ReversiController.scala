@@ -34,16 +34,6 @@ class ReversiController @Inject()(cc: ControllerComponents) extends AbstractCont
     Ok(views.html.reversi(gameController))
   }
 
-  def enableBot() = Action {
-    gameController.enableBot()
-    Ok(views.html.reversi(gameController))
-  }
-
-  def disableBot() = Action {
-    gameController.disableBot()
-    Ok(views.html.reversi(gameController))
-  }
-
   def save() = Action {
     gameController.save()
     Ok(views.html.reversi(gameController))
