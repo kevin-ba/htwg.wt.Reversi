@@ -75,16 +75,18 @@
         </div>
     </nav>
 
-    <div class="gamecontainer">
-        <div class="game">
-        @for(row <- 0 until size) {
-            @for(col <- 0 until size) {
-                <div class="@{cellType(row, col)}">
-                    <a href="/set/@row/@col">&nbsp;</a>
-                </div>
+    <div class="pagecontainer">
+        <div class="gamecontainer">
+            <div class="game">
+            @for(row <- 0 until size) {
+                @for(col <- 0 until size) {
+                    <div class="@{cellType(row, col)}">
+                        <a href="/set/@row/@col">&nbsp;</a>
+                    </div>
+                }
+                <div class="clear"></div>
             }
-            <div class="clear"></div>
-        }
+            </div>
         </div>
     </div>
 }
