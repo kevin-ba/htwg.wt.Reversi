@@ -8,6 +8,10 @@ function cellType(scalar) {
     }
 }
 
+function toScalar(house, cell) {
+    return house*size + cell;
+}
+
 function row(scalar) {
     return Math.floor(scalar / size);
 }
@@ -15,18 +19,6 @@ function row(scalar) {
 function col(scalar) {
     return Math.floor(scalar % size);
 }
-
-let gameJson = {
-    size:8,
-    0: {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0},
-    1: {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0},
-    2: {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0},
-    3: {0:0,1:0,2:0,3:1,4:2,5:0,6:0,7:0},
-    4: {0:0,1:0,2:0,3:2,4:1,5:0,6:0,7:0},
-    5: {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0},
-    6: {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0},
-    7: {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0},
-};
 
 class Grid {
     constructor(size){
@@ -36,15 +28,14 @@ class Grid {
 
     fill(json) {
         for (let scalar=0; scalar <this.size*this.size;scalar++) {
-            this.cells[scalar]=(json[row(scalar)][col(scalar)]);
+            this.cells[scalar]=(json[toScalar(row(scalar),col(scalar))].cell.value);
         }
     }
 }
 
-let grid = new Grid(gameJson.size)
-grid.fill(gameJson)
+let grid = new Grid(8)
 
-function fillGrid(grid) {
+function updateGrid(grid) {
     console.log("Filling grid");
     for (let scalar=0; scalar <grid.size*grid.size;scalar++) {
             document.getElementById("scalar"+scalar).className = cellType(scalar);
@@ -54,6 +45,7 @@ function fillGrid(grid) {
 function setCell(scalar, value) {
     console.log("Setting cell " + scalar);
     document.getElementById("scalar"+scalar).className = "white";
+    setCellOnServer(row(scalar), col(scalar))
     $("#scalar"+scalar).off("click");
 
 }
@@ -66,12 +58,30 @@ function registerClickListener() {
     }
 }
 
+function setCellOnServer(row, col) {
+    $.get("/set/"+row+"/"+col, function(data) {
+        console.log("Set cell on Server");
+    });
+}
+
+function loadJson() {
+    $.ajax({
+        method: "GET",
+        url: "/json",
+        dataType: "json",
+
+        success: function (result) {
+            grid = new Grid(result.grid.size);
+            grid.fill(result.grid.cells);
+            updateGrid(grid);
+            registerClickListener();
+        }
+    });
+}
+
 $( document ).ready(function() {
     console.log( "Document is ready" );
-    fillGrid(grid);
-    registerClickListener();
-    //registerMoveListener()
-
+    loadJson();
 });
 
 

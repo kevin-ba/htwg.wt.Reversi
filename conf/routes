@@ -16,6 +16,8 @@ GET     /set/:row/:col              controllers.ReversiController.set(row:Int, c
 
 GET     /about                      controllers.ReversiController.about
 
+GET     /json                       controllers.ReversiController.gridToJson
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

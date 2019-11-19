@@ -54,9 +54,16 @@ class ReversiController @Inject()(cc: ControllerComponents) extends AbstractCont
     Ok(views.html.reversi(gameController))
   }
 
+  def gridToJson = Action {
+    Ok(toJson)
+  }
+
   def quit() = Action {
     System.exit(0)
     Ok(views.html.reversi(gameController))
   }
 
+  def toJson = {
+    System.exit(0)
+  }
 }
