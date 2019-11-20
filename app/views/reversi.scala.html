@@ -1,11 +1,11 @@
-@(controller:de.htwg.se.reversi.controller.controllerComponent.ControllerInterface)
+@(controller:de.htwg.se.reversi.controller.controllerComponent.ControllerInterface, message:String)
 
 @size= @{ controller.gridSize }
 
 @cellType(row:Int, col:Int) = @{
     controller.cell(row, col).value match {
-        case 1 => "white"
-        case 2 => "black"
+        case 1 => "notSet"
+        case 2 => "notSet"
         case _ => "notSet"
     }
 }
@@ -75,6 +75,9 @@
                 <div class="clear"></div>
             }
             </div>
+        </div>
+        <div class="alert alert-primary" role="alert">
+        @message
         </div>
     </div>
 }

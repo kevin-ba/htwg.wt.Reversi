@@ -38,7 +38,7 @@ let grid = new Grid(8)
 function updateGrid(grid) {
     console.log("Filling grid");
     for (let scalar=0; scalar <grid.size*grid.size;scalar++) {
-            document.getElementById("scalar"+scalar).className = cellType(scalar);
+            document.getElementById("scalar"+scalar).className = cellType(grid.cells[scalar].value);
     }
 }
 
@@ -52,7 +52,7 @@ function setCell(scalar, value) {
 
 function registerClickListener() {
     for (let scalar=0; scalar <grid.size*grid.size;scalar++) {
-        if (grid.cells[scalar] == 0) {
+        if (grid.cells[scalar] != 1 | grid.cells[scalar] != 2) {
             $("#scalar"+scalar).click(function() {setCell(scalar, grid.cells[scalar])});
         }
     }
