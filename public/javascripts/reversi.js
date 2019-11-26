@@ -4,7 +4,7 @@ function cellType(value) {
     switch(value) {
         case 1: return "white";
         case 2: return "black";
-        case 3: return "candidate";
+        //case 3: return "candidate";
         default: return "notSet";
     }
 }
@@ -57,7 +57,7 @@ function setCell(scalar, activePlayer) {
 
 function registerClickListener() {
     for (let scalar=0; scalar <grid.size*grid.size;scalar++) {
-        if (grid.cells[scalar] != 1 | grid.cells[scalar] != 2) {
+        if (grid.cells[scalar] != 1 & grid.cells[scalar] != 2) {
             $("#scalar"+scalar).click(function() {setCell(scalar, grid.activePlayer)});
         }
     }
@@ -80,6 +80,8 @@ function loadJson() {
             grid.fill(result.grid.cells);
             updateGrid(grid);
             registerClickListener();
+            registerMouseEnterListener();
+            registerMouseLeaveListener()
         }
     });
 }
@@ -90,14 +92,30 @@ $( document ).ready(function() {
 });
 
 
-/*function registerMoveListener() {
+function registerMouseEnterListener() {
     for (let scalar = 0; scalar < grid.size * grid.size; scalar++) {
-        $("#scalar"+scalar).on("mousemove", function() {highlight(scalar)})
+        if (grid.cells[scalar] != 1 & grid.cells[scalar] != 2) {
+            $("#scalar"+scalar).on("mouseenter", function() {highlight(scalar)});
+        }
+    }
+}
+
+function registerMouseLeaveListener() {
+    for (let scalar = 0; scalar < grid.size * grid.size; scalar++) {
+        if (grid.cells[scalar] != 1 & grid.cells[scalar] != 2) {
+            $("#scalar"+scalar).on("mouseleave", function() {unhighlight(scalar)});
+        }
     }
 }
 
 function highlight(scalar) {
-    /* Falls zug möglich -> grün highlighten
-        Falls zug nicht möglich -> rot
-    document.getElementById("scalar"+scalar).className = "white";
-}*/
+    if(grid.cells[scalar] == 3) {
+        document.getElementById("scalar"+scalar).className = "candidate";
+    } else {
+        document.getElementById("scalar"+scalar).className = "nocandidate";
+    }
+}
+
+function unhighlight(scalar) {
+    document.getElementById("scalar"+scalar).className = cellType(grid.cells[scalar]);
+}

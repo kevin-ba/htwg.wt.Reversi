@@ -158,3 +158,15 @@
     margin:0.1em;
     text-align: center;
 }
+.nocandidate {
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    background-color: red;
+    border-color: #f6f6FF;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
