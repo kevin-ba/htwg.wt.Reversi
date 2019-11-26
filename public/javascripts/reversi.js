@@ -51,7 +51,6 @@ function setCell(scalar, activePlayer) {
         document.getElementById("scalar"+scalar).className = cellType(activePlayer);
         setCellOnServer(row(scalar), col(scalar))
         $("#scalar"+scalar).off("click");
-        loadJson();
     }
 }
 
@@ -62,35 +61,6 @@ function registerClickListener() {
         }
     }
 }
-
-function setCellOnServer(row, col) {
-    $.get("/set/"+row+"/"+col, function(data) {
-        console.log("Set cell on Server");
-    });
-}
-
-function loadJson() {
-    $.ajax({
-        method: "GET",
-        url: "/json",
-        dataType: "json",
-
-        success: function (result) {
-            grid = new Grid(result.grid.size, result.grid.activePlayer);
-            grid.fill(result.grid.cells);
-            updateGrid(grid);
-            registerClickListener();
-            registerMouseEnterListener();
-            registerMouseLeaveListener()
-        }
-    });
-}
-
-$( document ).ready(function() {
-    console.log( "Document is ready" );
-    loadJson();
-});
-
 
 function registerMouseEnterListener() {
     for (let scalar = 0; scalar < grid.size * grid.size; scalar++) {
@@ -119,3 +89,62 @@ function highlight(scalar) {
 function unhighlight(scalar) {
     document.getElementById("scalar"+scalar).className = cellType(grid.cells[scalar]);
 }
+
+function setCellOnServer(row, col) {
+    $.get("/set/"+row+"/"+col, function(data) {
+        console.log("Set cell on Server");
+    });
+}
+
+function loadJson() {
+    $.ajax({
+        method: "GET",
+        url: "/json",
+        dataType: "json",
+
+        success: function (result) {
+            grid = new Grid(result.grid.size, result.grid.activePlayer);
+            grid.fill(result.grid.cells);
+            updateGrid(grid);
+            registerClickListener();
+            registerMouseEnterListener();
+            registerMouseLeaveListener();
+        }
+    });
+}
+
+function connectWebSocket() {
+    var websocket = new WebSocket("ws://localhost:9000/websocket");
+    websocket.setTimeout
+
+    websocket.onopen = function(event) {
+        console.log("Connected to Websocket");
+    }
+
+    websocket.onclose = function () {
+        console.log('Connection with Websocket Closed!');
+    };
+
+    websocket.onerror = function (error) {
+        console.log('Error in Websocket Occured: ' + error);
+    };
+
+    websocket.onmessage = function (e) {
+        if (typeof e.data === "string") {
+            let json = JSON.parse(e.data);
+            let cells = json.grid.cells;
+            grid.fill(cells);
+            updateGrid(grid);
+            registerClickListener();
+            registerMouseEnterListener();
+            registerMouseLeaveListener();
+        }
+
+    };
+}
+
+$( document ).ready(function() {
+    console.log( "Document is ready" );
+    loadJson();
+    connectWebSocket();
+});
