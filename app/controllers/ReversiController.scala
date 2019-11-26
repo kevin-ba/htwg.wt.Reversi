@@ -67,9 +67,11 @@ class ReversiController @Inject()(cc: ControllerComponents) extends AbstractCont
 
   def toJson = {
     val size = gameController.gridSize;
+    val activePlayer = gameController.getActivePlayer();
     Json.obj(
       "grid" -> Json.obj(
         "size" -> JsNumber(size),
+        "activePlayer" -> JsNumber(activePlayer),
         "cells" -> Json.toJson(
           for {row <- 0 until size;
                col <- 0 until size} yield {
