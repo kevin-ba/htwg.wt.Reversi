@@ -4,11 +4,17 @@ import javax.inject._
 
 import play.api.mvc._
 import de.htwg.se.reversi.Reversi
-import de.htwg.se.reversi.controller.controllerComponent.GameStatus
-import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
+import de.htwg.se.reversi.controller.controllerComponent.{GameStatus, CellChanged, GridSizeChanged}
+import play.api.libs.json.{JsNumber, Json}
+import play.api.libs.streams.ActorFlow
+import akka.actor.ActorSystem
+import akka.stream.Materializer
+import akka.actor._
+
+import scala.swing.Reactor
 
 @Singleton
-class ReversiController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class ReversiController @Inject()(cc: ControllerComponents) (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
   val gameController = Reversi.controller
   def message = GameStatus.message(gameController.gameStatus)
   def reversiAsText =  gameController.gridToString + message
@@ -84,4 +90,39 @@ class ReversiController @Inject()(cc: ControllerComponents) extends AbstractCont
       )
     )
   }
+
+  def socket = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef { out =>
+      println("Connect received")
+      ReversiWebSocketActorFactory.create(out)
+    }
+  }
+
+  object ReversiWebSocketActorFactory {
+    def create(out: ActorRef) = {
+      Props(new ReversiWebSocketActor(out))
+    }
+  }
+
+  class ReversiWebSocketActor(out: ActorRef) extends Actor with Reactor{
+    listenTo(gameController)
+
+    def receive = {
+      case msg: String =>
+        out ! (toJson.toString)
+        println("Sent Json to Client"+ msg)
+    }
+
+    reactions += {
+      case event: GridSizeChanged => sendJsonToClient
+      case event: CellChanged     => sendJsonToClient
+    }
+
+    def sendJsonToClient = {
+      println("Received event from Controller")
+      out ! (toJson.toString)
+    }
+
+  }
+
 }
