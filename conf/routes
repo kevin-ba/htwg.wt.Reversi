@@ -5,6 +5,7 @@
 # Controller for Reversi
 
 GET     /                           controllers.ReversiController.reversi
+GET     /reversiPolymer              controllers.ReversiController.reversiPolymer
 GET     /new                        controllers.ReversiController.newGrid
 GET     /save                       controllers.ReversiController.save
 GET     /load                       controllers.ReversiController.load

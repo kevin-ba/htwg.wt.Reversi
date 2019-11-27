@@ -27,6 +27,10 @@ class ReversiController @Inject()(cc: ControllerComponents) (implicit system: Ac
     Ok(views.html.reversi(gameController, message))
   }
 
+  def reversiPolymer = Action {
+    Ok(views.html.reversiPolymer())
+  }
+
   def newGrid = Action {
     gameController.createNewGrid
     Ok(views.html.reversi(gameController, message))
