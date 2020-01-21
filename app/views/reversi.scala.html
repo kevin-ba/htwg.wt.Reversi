@@ -14,6 +14,9 @@
 @toScalar(house:Int, cell:Int)=@{ house*size + cell}
 
 @main("HTWG Reversi") {
+    <script src="@routes.Assets.versioned("javascripts/vue.js")" ></script>
+    <script src="@routes.Assets.versioned("javascripts/reversiVue.js")" ></script>
+
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/reversi.css")' />
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -64,21 +67,13 @@
         </div>
     </nav>
 
-    <div class="pagecontainer">
-        <div class="gamecontainer">
-            <div class="game">
-            @for(row <- 0 until size) {
-                @for(col <- 0 until size) {
-                    <div class="@{cellType(row, col)}" id="scalar@{toScalar(row, col)}">
-                        <!--<a href="/set/@row/@col">&nbsp;</a>-->
-                    </div>
-                }
-                <div class="clear"></div>
-            }
-            </div>
-        </div>
+    <div id="reversi-game" class="pagecontainer">
+
+        <reversi-field></reversi-field>
+
         <div class="alert alert-primary" role="alert">
         @message
         </div>
     </div>
+
 }
