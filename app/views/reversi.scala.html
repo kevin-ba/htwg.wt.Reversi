@@ -6,9 +6,12 @@
     controller.cell(row, col).value match {
         case 1 => "white"
         case 2 => "black"
+        case 3 => "candidate"
         case _ => "notSet"
     }
 }
+
+@toScalar(house:Int, cell:Int)=@{ house*size + cell}
 
 @main("HTWG Reversi") {
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/sudoku.css")' />
@@ -53,15 +56,6 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Bot
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/enableBot">Enable</a>
-                        <a class="dropdown-item" href="/disableBot">Disable</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Size
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -79,7 +73,7 @@
         <div class="game">
         @for(row <- 0 until size) {
             @for(col <- 0 until size) {
-                <div class="@{cellType(row, col)}">
+                <div class="@{cellType(row, col)}" id="scalar@{toScalar(row, col)}">
                     <a href="/set/@row/@col">&nbsp;</a>
                 </div>
             }

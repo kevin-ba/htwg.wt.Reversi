@@ -8,8 +8,6 @@ GET     /                           controllers.ReversiController.reversi
 GET     /new                        controllers.ReversiController.newGrid
 GET     /save                       controllers.ReversiController.save
 GET     /load                       controllers.ReversiController.load
-GET     /enableBot                  controllers.ReversiController.enableBot
-GET     /disableBot                 controllers.ReversiController.disableBot
 GET     /undo                       controllers.ReversiController.undo
 GET     /redo                       controllers.ReversiController.redo
 GET     /quit                       controllers.ReversiController.quit
